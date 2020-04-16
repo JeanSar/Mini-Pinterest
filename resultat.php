@@ -12,10 +12,9 @@ require_once('./fonctions/Connexion.php');
 		afficherImage($nomImage);
 		$requete = executeQuery($link,"SELECT P.description, C.nomCat FROM `photo` P NATURAL JOIN `categorie` C WHERE `nomFich`='{$nomImage}'");
 		$tab = mysqli_fetch_array($requete);
-		echo "<br />".$nomImage. "<br />";
-		echo $tab['nomCat']. "<br />";
-		echo $tab['description'];
-		
-	?>
+		echo "<br />Nom de l'image : ".$nomImage;
+		echo "<form name='Accueil' method='post' action='Accueil.php'>Catégorie : <input type='hidden' value='".$tab['nomCat']."'  name='Categorie'><a href='#' onclick='document.Accueil.submit()'>".$tab['nomCat']."</a></form>";
+		echo "Descritpion : ".$tab['description'];
+	?>	
 </head>
 <body>
