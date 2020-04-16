@@ -25,4 +25,13 @@ function afficherCategorie($link,$categorie){
 	}
 
 }
+function afficherRecherche($link,$recherche){
+	$requete = executeQuery($link, "SELECT nomFich 
+					FROM photo 
+					WHERE titre LIKE \"%". $recherche ."%\"");
+	while($resultat = mysqli_fetch_array($requete)){
+		afficherImageAccueil($resultat['nomFich']);
+	}
+
+}
 ?>
