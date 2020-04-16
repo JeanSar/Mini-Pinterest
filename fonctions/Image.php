@@ -21,7 +21,7 @@ function afficherCategorie($link,$categorie){
 					ON categorie.catId = photo.catId
 					WHERE nomCat LIKE \"". $categorie ."\"");
 	while($resultat = mysqli_fetch_array($requete)){
-		afficherImage($resultat['nomFich']);
+		afficherImageAccueil($resultat['nomFich']);
 	}
 
 }
