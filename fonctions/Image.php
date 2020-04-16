@@ -9,4 +9,14 @@ function afficherTout($link){
 		afficherImage($resultat['nomFich']);
 	}
 }
+function afficherCategorie($link,$categorie){
+	$requete = executeQuery($link, "SELECT nomFich 
+					FROM photo 
+					JOIN categorie 
+					ON categorie.catId = photo.catId
+					WHERE nomCat LIKE \"". $categorie ."\"");
+	while($resultat = mysqli_fetch_array($requete)){
+		afficherImage($resultat['nomFich']);
+	}
+}
 ?>

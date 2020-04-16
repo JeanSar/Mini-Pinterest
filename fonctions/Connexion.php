@@ -7,7 +7,7 @@ function getConnection()
 	$dbHost = "localhost";// à compléter
 	$dbUser = "root";// à compléter
 	$dbPwd = "";// à compléter
-	$dbName = "mini-pinterest";
+	$dbName = "BDW-Images";
 	$link = mysqli_connect($dbHost, $dbUser, $dbPwd, $dbName);
 	if (!$link) {
 		echo "Erreur : Impossible de se connecter à MySQL." . PHP_EOL;
