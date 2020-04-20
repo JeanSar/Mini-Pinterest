@@ -27,7 +27,7 @@
 		<br /> 
 		<?php 
 		$link=getConnection(); 
-		if(isset($_POST['afficher'])) {
+		if(isset($_POST['Categorie'])) {
 			if($_POST['Categorie'] == "TOUT") {
 				echo "<h2>Toutes les photos</h2>";	
 				afficherTout($link);		
