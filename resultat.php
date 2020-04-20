@@ -26,9 +26,9 @@ require_once('./fonctions/Connexion.php');
 		$link=getConnection();
 		$nomImage=current($_POST);
 		afficherImage($nomImage);
-		$requete = executeQuery($link,"SELECT P.description, C.nomCat FROM `photo` P NATURAL JOIN `categorie` C WHERE `nomFich`='{$nomImage}'");
+		$requete = executeQuery($link,"SELECT P.titre, P.description, C.nomCat FROM `photo` P NATURAL JOIN `categorie` C WHERE `nomFich`='{$nomImage}'");
 		$tab = mysqli_fetch_array($requete);
-		echo "<br />Nom de l'image : ".$nomImage."<br />";
+		echo "<br />Nom de l'image : ".$tab['titre']."<br />";
 		echo "<form name='Accueil' method='post' action='Accueil.php'>Catégorie : <input type='hidden' value='".$tab['nomCat']."'  name='Categorie'><a href='#' onclick='document.Accueil.submit()'>".$tab['nomCat']."</a></form>";
 		echo "Descritpion : ".$tab['description'];
 	?>	
