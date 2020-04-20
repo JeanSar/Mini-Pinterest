@@ -4,6 +4,11 @@ require_once('./fonctions/Image.php');
 require_once('./fonctions/Connexion.php');
 ?>
 <html>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+	<link rel="stylesheet" href="Acceuil.css">
 <head>
 <title></title>
 	<style type="text/css">
@@ -28,9 +33,17 @@ require_once('./fonctions/Connexion.php');
 		afficherImage($nomImage);
 		$requete = executeQuery($link,"SELECT P.titre, P.description, C.nomCat FROM `photo` P NATURAL JOIN `categorie` C WHERE `nomFich`='{$nomImage}'");
 		$tab = mysqli_fetch_array($requete);
-		echo "<br />Nom de l'image : ".$tab['titre']."<br />";
-		echo "<form name='Accueil' method='post' action='Accueil.php'>Catégorie : <input type='hidden' value='".$tab['nomCat']."'  name='Categorie'><a href='#' onclick='document.Accueil.submit()'>".$tab['nomCat']."</a></form>";
-		echo "Descritpion : ".$tab['description'];
+		echo "<br />
+			Nom de l'image : ".$tab['titre']."
+			<br />
+			<form name='Accueil' method='post' action='Accueil.php'>
+				Catégorie : <input type='hidden' value='".$tab['nomCat']."'  name='Categorie'>
+				<a href='#' onclick='document.Accueil.submit()'>
+					".$tab['nomCat']."
+				</a>
+			</form>
+			Descritpion : ".$tab['description'];
 	?>	
 </head>
 <body>
+</html>

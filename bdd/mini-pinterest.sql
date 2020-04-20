@@ -2,8 +2,8 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost
--- Généré le : jeu. 16 avr. 2020 à 18:05
+-- Hôte : 127.0.0.1
+-- Généré le : lun. 20 avr. 2020 à 15:34
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.4
 
@@ -18,19 +18,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `BDW-Images`
+-- Base de données : `mini-pinterest`
 --
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Categorie`
---
-
-CREATE TABLE `Categorie` (
-  `catId` int(11) DEFAULT NULL,
-  `nomCat` varchar(250) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -73,19 +62,6 @@ INSERT INTO `photo` (`photoId`, `nomFich`, `description`, `catId`, `titre`) VALU
 (1, 'DSC1.jpg', 'Fruit', 1, 'Pamplemousse'),
 (2, 'DSC2.jpg', 'Fruit', 1, 'Les bons fruits'),
 (3, 'DSC3.jpeg', 'Un jolie legume ! ', 2, 'La salade');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Photo`
---
-
-CREATE TABLE `Photo` (
-  `photoId` int(11) DEFAULT NULL,
-  `nomFich` varchar(250) DEFAULT NULL,
-  `description` varchar(250) DEFAULT NULL,
-  `catId` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Index pour les tables déchargées

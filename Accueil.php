@@ -4,13 +4,21 @@
 		require_once('./fonctions/Connexion.php');
 	?>
 <html>
+	<title>Mini Pinterest</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+	<link rel="stylesheet" href="Acceuil.css">
 	<head>
-		<title>Mini Pinterest</title>
 	</head>
+
 	<body>
-	<h1>Mini Pinterest le site !</h1>
+	<div class="w3-container w3-center w3-teal">
+		<h1>Mini Pinterest le site !</h1>
+	</div>
 	<p>
-		<form action="Accueil.php" method="post">
+		<form class="w3-container w3-center" action="Accueil.php" method="post">
 			<label for="categorie">Choisissez une catégorie </label>
 			<select name="Categorie" id="categorie">
 				<option value="TOUT">Tout</option>
