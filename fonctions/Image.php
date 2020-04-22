@@ -1,14 +1,15 @@
 <html>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-	<link rel="stylesheet" href="Acceuil.css">
+	<link rel="stylesheet" href="style.css">
+
 <?php
 require_once('Connexion.php');
 function afficherImage($nomFich){
 	echo "
-			
+
 		<img src='assets/images/".$nomFich."'>
-		
+
 		";
 }
 
@@ -32,9 +33,9 @@ function afficherTout($link){
 	}
 }
 function afficherCategorie($link,$categorie){
-	$requete = executeQuery($link, "SELECT nomFich 
-					FROM photo 
-					JOIN categorie 
+	$requete = executeQuery($link, "SELECT nomFich
+					FROM photo
+					JOIN categorie
 					ON categorie.catId = photo.catId
 					WHERE nomCat LIKE \"". $categorie ."\"");
 	while($resultat = mysqli_fetch_array($requete)){
@@ -43,8 +44,8 @@ function afficherCategorie($link,$categorie){
 
 }
 function afficherRecherche($link,$recherche){
-	$requete = executeQuery($link, "SELECT nomFich 
-					FROM photo 
+	$requete = executeQuery($link, "SELECT nomFich
+					FROM photo
 					WHERE titre LIKE \"%". $recherche ."%\"");
 	while($resultat = mysqli_fetch_array($requete)){
 		afficherImageAccueil($resultat['nomFich']);

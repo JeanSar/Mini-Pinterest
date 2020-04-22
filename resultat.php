@@ -4,13 +4,18 @@ require_once('./fonctions/Image.php');
 require_once('./fonctions/Connexion.php');
 ?>
 <html>
+	<title>Mini Pinterest</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
-	<link rel="stylesheet" href="Acceuil.css">
-<head>
-<title></title>
+	<head>
+		<div class="w3-container w3-teal w3-center">
+			<h1>Mini Pinterest le site !</h1>
+			<a> <r1 class="w3-button" href="Connexion.php" >Se connecter</a>
+		</div>
+	</head>
+	<body>
 	<style type="text/css">
 		a.bouton-relief {
   			color: white;
@@ -23,11 +28,11 @@ require_once('./fonctions/Connexion.php');
 		a.bouton-relief:hover {
   			background-color: #6495ED;
   			border: 2px inset #c0c0c0;
-		}	
+		}
 	</style>
 	<a href="Accueil.php" class="bouton-relief">Index</a>
 	<br />
-	<?php 
+	<?php
 		$link=getConnection();
 		$nomImage=current($_POST);
 		afficherImage($nomImage);
@@ -43,7 +48,6 @@ require_once('./fonctions/Connexion.php');
 				</a>
 			</form>
 			Descritpion : ".$tab['description'];
-	?>	
-</head>
-<body>
+	?>
+</body>
 </html>
