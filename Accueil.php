@@ -55,19 +55,19 @@
 				afficherCategorie($link,$_POST['Categorie']);
 			}
 		}
-		if(isset($_POST['rechercher'])) {
+		if (isset($_POST['rechercher'])) {
 			$_recherche = htmlspecialchars($_POST['recherche']);
 			echo "Résultat de la recherche pour : " . $_recherche;
 			afficherRecherche($link, $_recherche);
 		}
 		else {
-			echo "<h2>Toutes les photos</h2>";
-			afficherTout($link);
+				if(!isset($_POST['Categorie'])){
+					echo "<h2>Toutes les photos</h2>";
+					afficherTout($link);
+			}
 		}
 
 
 		?>
-	</p>
-
 	</body>
 </html>
