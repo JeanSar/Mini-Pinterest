@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
+		<a href="Accueil.php" >Retourner à l'accueil</a>
 		<?php
 
 		require_once('./fonctions/Connexion.php');
@@ -30,14 +31,13 @@
 			</select>
 			<span id="missCategorie"></span><br />
             
-            <label for="tel">Numéro de téléphone :</label>
-            <input type="tel" name="tel" id="tel" required><br>
-                
+            <label for="nom">Nom que vous voulez donner :</label>
+            <input type="text" name="nom" id="nom" required><br>
             <input type="submit" value="Valider" id="bouton_envoi">
         </form>';
 		}
 		
-		if(isset($_POST['description']) and isset($_FILES['fichier']['name']) and isset($_POST['categorie']) and isset($_POST['tel'])){
+		if(isset($_POST['description']) and isset($_FILES['fichier']['name']) and isset($_POST['categorie']) and isset($_POST['nom'])){
 			
 			$affiche_formulaire=0;
 			
@@ -55,7 +55,7 @@
 				formulaire();
 			if($affiche_formulaire==0 and isset($_FILES['fichier'])){ 
 				$dossier = 'assets/images/';
-				$requete = executeQuery($link, "SELECT max(photoId) from photo");
+				$requete = executeQuery($link,"SELECT max(photoId) from photo");
 				$resultat=mysqli_fetch_array($requete);
 				$chaine=(string)(current($resultat)+1);
 				$fichier = "DSC".$chaine.".".pathinfo($_FILES['fichier']['name'], PATHINFO_EXTENSION);
@@ -63,9 +63,14 @@
 				$link->next_result();
      			if(move_uploaded_file($_FILES['fichier']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
 				{
+					$requete=executeQuery($link,"SELECT catId from categorie WHERE
+					nomCat='".$_POST['categorie']."'");
+					$categorie=(string)(current(mysqli_fetch_array($requete)));
+					$requete->close();
+					$link->next_result();
 					//echo 'Upload effectué avec succès !';
-					//header ('location : ./Accueil.php');
-					executeUpdate($link, "INSERT INTO photo values ('".$chaine."','".$fichier."','".$_POST['description']."','2','prout')");
+					executeUpdate($link, "INSERT INTO photo values ('".$chaine."','".$fichier."','".$_POST['description']."','".$categorie."','".$_POST['nom']."','admin')");
+					header('Location: Accueil.php');
 				}
 				else //Sinon (la fonction renvoie FALSE).
      			{

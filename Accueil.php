@@ -11,15 +11,41 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
 	<link rel="stylesheet" href="style.css">
 	<head>
-		<div class="w3-container w3-teal w3-center">
+		<div class='w3-container w3-teal w3-center'>
 			<h1>Mini Pinterest le site !</h1>
-			<form action="Connexion.php" method="post">
-				<label for="id">Identifiant : </label>
-				<input type ="text" name="id" id="id" placeholder="Saisir ..."/>
-				<label for="psswd">Mot de Passe : </label>
-				<input type ="password" name="psswd" id="psswd" placeholder="Saisir ..."/>
-				<input  class="w3_button w3-teal" type="submit" name="connexion" value = "Se connecter"/ >
-			</form>		</div>
+			<?php 
+				session_start();
+				$link=getConnection();
+				if (!isset($_SESSION["logged"])){
+				if(!isset($_POST['pseudo'])){
+					echo "
+						<form action='Accueil.php' method='post'>
+						<label for='id'>Identifiant : </label>
+						<input type ='text' name='pseudo' id='id' placeholder='Saisir ...' required/>
+						<label for='psswd'>Mot de Passe : </label>
+						<input type ='password' name='psswd' id='psswd' placeholder='Saisir ...' required/>
+						<input  class='w3_button w3-teal' type='submit' name='connexion' value = 'Se connecter'/ >
+						</form>";}
+				else{
+					$requete=executeQuery($link, "SELECT Nom, motdepasse FROM utilisateur WHERE pseudo = '".$_POST['pseudo']."'");
+					$resultat=mysqli_fetch_array($requete);
+					$chaine = ((string)($resultat['motdepasse']));
+					if($chaine==$_POST['psswd']){
+						$_SESSION["logged"]=$resultat['Nom'];
+						if(isset($_SESSION['logged'])){
+							echo "<a href='Ajouter.php' >Ajouter une image</a>";
+					}
+				}
+				$requete->close();
+				$link->next_result();
+			}
+		}
+		else{
+			echo "<a href='Ajouter.php' >Ajouter une image</a>";
+		}
+			
+		?>
+		</div>
 	</head>
 	<body>
 
@@ -44,7 +70,7 @@
 		<br />
 		<?php
 
-		$link=getConnection();
+	
 		if(isset($_POST['Categorie'])) {
 			if($_POST['Categorie'] == "TOUT") {
 				echo "<h2>Toutes les photos</h2>";
