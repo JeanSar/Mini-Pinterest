@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 20 avr. 2020 à 15:34
+-- Généré le : mar. 28 avr. 2020 à 15:59
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.4
 
@@ -51,17 +51,31 @@ CREATE TABLE `photo` (
   `nomFich` varchar(250) NOT NULL,
   `description` varchar(250) NOT NULL,
   `catId` int(10) NOT NULL,
-  `titre` varchar(250) DEFAULT NULL
+  `titre` varchar(250) DEFAULT NULL,
+  `Nom` varchar(250) DEFAULT NULL,
+  `afficher` tinyint(10) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `utilisateur`
+--
+
+CREATE TABLE `utilisateur` (
+  `droit` tinyint(1) DEFAULT NULL,
+  `Nom` varchar(250) NOT NULL,
+  `pseudo` varchar(250) NOT NULL,
+  `motdepasse` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `photo`
+-- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `photo` (`photoId`, `nomFich`, `description`, `catId`, `titre`) VALUES
-(1, 'DSC1.jpg', 'Fruit', 1, 'Pamplemousse'),
-(2, 'DSC2.jpg', 'Fruit', 1, 'Les bons fruits'),
-(3, 'DSC3.jpeg', 'Un jolie legume ! ', 2, 'La salade');
+INSERT INTO `utilisateur` (`droit`, `Nom`, `pseudo`, `motdepasse`) VALUES
+(0, 'Deloin Gaspar', 'Hipole', '1'),
+(1, 'Dieu', 'admin', 'admin');
 
 --
 -- Index pour les tables déchargées
@@ -78,7 +92,14 @@ ALTER TABLE `categorie`
 --
 ALTER TABLE `photo`
   ADD PRIMARY KEY (`photoId`),
-  ADD KEY `catId` (`catId`);
+  ADD KEY `catId` (`catId`),
+  ADD KEY `Nom` (`Nom`);
+
+--
+-- Index pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD PRIMARY KEY (`Nom`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -94,7 +115,7 @@ ALTER TABLE `categorie`
 -- AUTO_INCREMENT pour la table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `photoId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `photoId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Contraintes pour les tables déchargées
@@ -104,7 +125,8 @@ ALTER TABLE `photo`
 -- Contraintes pour la table `photo`
 --
 ALTER TABLE `photo`
-  ADD CONSTRAINT `photo_ibfk_1` FOREIGN KEY (`catId`) REFERENCES `categorie` (`catId`);
+  ADD CONSTRAINT `photo_ibfk_1` FOREIGN KEY (`catId`) REFERENCES `categorie` (`catId`),
+  ADD CONSTRAINT `photo_ibfk_2` FOREIGN KEY (`Nom`) REFERENCES `utilisateur` (`Nom`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
