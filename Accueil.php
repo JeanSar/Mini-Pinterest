@@ -2,6 +2,8 @@
 	<?php
 		require_once('./fonctions/Image.php');
 		require_once('./fonctions/Connexion.php');
+		require_once('./fonctions/Affichage.php');
+		
 	?>
 <html>
 	<title>Mini Pinterest</title>
@@ -15,35 +17,7 @@
 			<h1>Mini Pinterest le site !</h1>
 			<?php 
 				session_start();
-				$link=getConnection();
-				if (!isset($_SESSION["logged"])){
-				if(!isset($_POST['pseudo'])){
-					echo "
-						<form action='Accueil.php' method='post'>
-						<label for='id'>Identifiant : </label>
-						<input type ='text' name='pseudo' id='id' placeholder='Saisir ...' required/>
-						<label for='psswd'>Mot de Passe : </label>
-						<input type ='password' name='psswd' id='psswd' placeholder='Saisir ...' required/>
-						<input  class='w3_button w3-teal' type='submit' name='connexion' value = 'Se connecter'/ >
-						</form>";}
-				else{
-					$requete=executeQuery($link, "SELECT Nom, motdepasse FROM utilisateur WHERE pseudo = '".$_POST['pseudo']."'");
-					$resultat=mysqli_fetch_array($requete);
-					$chaine = ((string)($resultat['motdepasse']));
-					if($chaine==$_POST['psswd']){
-						$_SESSION["logged"]=$resultat['Nom'];
-						if(isset($_SESSION['logged'])){
-							echo "<a href='Ajouter.php' >Ajouter une image</a>";
-					}
-				}
-				$requete->close();
-				$link->next_result();
-			}
-		}
-		else{
-			echo "<a href='Ajouter.php' >Ajouter une image</a>";
-		}
-			
+				formulaireConnexion();
 		?>
 		</div>
 	</head>
@@ -66,34 +40,10 @@
 			<input type ="text" name="recherche" id="recherche" placeholder="Rechercher ..."/>
 			<input  class="w3_button w3-teal" type="submit" name="rechercher" value = "Go!"/ >
 		</form>
-
 		<br />
 		<?php
-
-	
-		if(isset($_POST['Categorie'])) {
-			if($_POST['Categorie'] == "TOUT") {
-				echo "<h2>Toutes les photos</h2>";
-				afficherTout($link);
-			}
-			else {
-				echo "<h2>Toutes les " . $_POST['Categorie'] . "s</h2>";
-				afficherCategorie($link,$_POST['Categorie']);
-			}
-		}
-		if (isset($_POST['rechercher'])) {
-			$_recherche = htmlspecialchars($_POST['recherche']);
-			echo "Résultat de la recherche pour : " . $_recherche;
-			afficherRecherche($link, $_recherche);
-		}
-		else {
-				if(!isset($_POST['Categorie'])){
-					echo "<h2>Toutes les photos</h2>";
-					afficherTout($link);
-			}
-		}
-
-
+		Categorie();
+		Recherche();
 		?>
 	</body>
 </html>

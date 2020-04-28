@@ -8,8 +8,11 @@
 	<body>
 		<a href="Accueil.php" >Retourner à l'accueil</a>
 		<?php
-
+		session_start();
 		require_once('./fonctions/Connexion.php');
+		if (!isset($_SESSION['logged'])){
+			header('Location: Accueil.php');
+		}
 		$link=getConnection();
 		function formulaire(){
 			echo'<form enctype="multipart/form-data" method="post" action="Ajouter.php">
@@ -53,31 +56,42 @@
 			
 			if($affiche_formulaire==1)
 				formulaire();
-			if($affiche_formulaire==0 and isset($_FILES['fichier'])){ 
-				$dossier = 'assets/images/';
-				$requete = executeQuery($link,"SELECT max(photoId) from photo");
-				$resultat=mysqli_fetch_array($requete);
-				$chaine=(string)(current($resultat)+1);
-				$fichier = "DSC".$chaine.".".pathinfo($_FILES['fichier']['name'], PATHINFO_EXTENSION);
-				$requete->close();
-				$link->next_result();
-     			if(move_uploaded_file($_FILES['fichier']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
-				{
-					$requete=executeQuery($link,"SELECT catId from categorie WHERE
-					nomCat='".$_POST['categorie']."'");
-					$categorie=(string)(current(mysqli_fetch_array($requete)));
+			if($affiche_formulaire==0 and isset($_FILES['fichier'])){
+				$ext = array ('jpeg', 'gif', 'png');
+				$extension = pathinfo($_FILES['fichier']['name'], PATHINFO_EXTENSION);
+				if (!(in_array(strtolower($extension), $ext))){
+					echo 'Mauvaise extension <br>';
+				}
+				else{
+					$dossier = 'assets/images/';
+					$requete = executeQuery($link,"SELECT max(photoId) from photo");
+					$resultat=mysqli_fetch_array($requete);
+					$chaine=(string)(current($resultat)+1);
+					$fichier = "DSC".$chaine.".".pathinfo($_FILES['fichier']['name'], PATHINFO_EXTENSION);
 					$requete->close();
 					$link->next_result();
-					//echo 'Upload effectué avec succès !';
-					executeUpdate($link, "INSERT INTO photo values ('".$chaine."','".$fichier."','".$_POST['description']."','".$categorie."','".$_POST['nom']."','admin')");
-					header('Location: Accueil.php');
-				}
+					if(move_uploaded_file($_FILES['fichier']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+					{
+						$requete=executeQuery($link,"SELECT catId from categorie WHERE
+						nomCat='".$_POST['categorie']."'");
+						$categorie=(string)(current(mysqli_fetch_array($requete)));
+						$requete->close();
+						$link->next_result();
+						//echo 'Upload effectué avec succès !';
+						if (isset($_SESSION["logged"])){
+							executeUpdate($link, "INSERT INTO photo (nomFich,description,catId,titre,Nom) values ('".$fichier."','".$_POST['description']."','".$categorie."','".$_POST['nom']."','".$_SESSION["logged"]."')");
+						
+						}
+						else{executeUpdate($link, "INSERT INTO photo values 	('".$chaine."','".$fichier."','".$_POST['description']."','".$categorie."','".$_POST['nom']."','Dieu'");}
+						header('Location: Accueil.php');
+						}
+					}}
 				else //Sinon (la fonction renvoie FALSE).
-     			{
+     			{	
 					echo 'Echec de l\'upload !';
 				}
 			}	
-		}
+		
 		else{
 			formulaire();
 		}
