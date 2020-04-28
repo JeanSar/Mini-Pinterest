@@ -2,6 +2,7 @@
 require_once('./fonctions/Image.php');
 require_once('./fonctions/Connexion.php');
 $link=getConnection();
+
 function Categorie(){
 	$link=getConnection();
 	if(isset($_POST['Categorie'])) {
@@ -95,7 +96,7 @@ function formulaireConnexion(){
 							$_SESSION['temps']=$_SERVER['REQUEST_TIME']-$_SESSION['debut'];
 							$seconde=$_SESSION['temps']%60;
 							$minute=($_SESSION['temps']-$seconde)/60;
-							echo "Temps de connexion : ".$minute." minute(s) ".$seconde."<br>";
+							echo "Temps de connexion : ".$minute." minute(s) ".$seconde." seconde(s)"."<br>";
 							echo $_SESSION["logged"];
 							echo "<br>";
 							$_SESSION['droit']=$resultat['droit'];
@@ -123,7 +124,7 @@ function formulaireConnexion(){
 				$_SESSION['temps']=$_SERVER['REQUEST_TIME']-$_SESSION['debut'];
 				$seconde=$_SESSION['temps']%60;
 				$minute=($_SESSION['temps']-$seconde)/60;
-				echo "Temps de connexion : ".$minute." minute(s) ".$seconde."<br>";
+				echo "Temps de connexion : ".$minute." minute(s) ".$seconde." seconde(s)"."<br>";
 				echo $_SESSION["logged"];
 				echo "<br>";
 				echo "<a href='Ajouter.php' >Ajouter une image</a>";

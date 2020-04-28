@@ -3,6 +3,7 @@
 require_once('./fonctions/Image.php');
 require_once('./fonctions/Connexion.php');
 require_once('./fonctions/Affichage.php');
+session_start();
 	$link=getConnection();
 	if(isset($_POST['supprimer'])){
 		executeQuery($link,"DELETE FROM `photo` WHERE nomFich='".$_POST['supprimer']."'");
@@ -31,8 +32,7 @@ require_once('./fonctions/Affichage.php');
 	<head>
 		<div class="w3-container w3-teal w3-center">
 			<h1>Mini Pinterest le site !</h1>
-			<?php
-				session_start();				
+			<?php				
 				formulaireConnexion();
 			?>
 		</div>
@@ -55,7 +55,6 @@ require_once('./fonctions/Affichage.php');
 	<a href="Accueil.php" class="bouton-relief">Index</a>
 	<br />
 	<?php
-		$link=getConnection();
 		$nomImage=$_POST['image'];
 		afficherImage($nomImage);
 		$requete = executeQuery($link,"SELECT P.titre, P.description, C.nomCat FROM `photo` P NATURAL JOIN `categorie` C WHERE `nomFich`='{$nomImage}'");
@@ -83,6 +82,10 @@ require_once('./fonctions/Affichage.php');
 						<input type='hidden' value='".$nomImage."' name='Cacher'>
 						<input type='submit' value='Cacher'>
 						</form>";
+					echo "<form  method='post' action='Modifier.php'>
+						<input type='hidden' value='".$nomImage."' name='Modifier'>
+						<input type='submit' value='Modifier'>
+						</form>";
 				}
 			}
 			$requete->close();
@@ -95,13 +98,17 @@ require_once('./fonctions/Affichage.php');
 						<input type='hidden' value='".$nomImage."' name='Afficher'>
 						<input type='submit' value='Rendre public'>
 						</form>";
+					echo "<form  method='post' action='Modifier.php'>
+						<input type='hidden' value='".$nomImage."' name='Modifier'>
+						<input type='submit' value='Modifier'>
+						</form>";
 				}
 			}
 			echo "<form  method='post' action='resultat.php'>
 				<input type='hidden' value='".$nomImage."' name='supprimer'>
 				<input type='submit' value='Supprimer'>
 				</form>";
-		}
+			}
 	?>
 </body>
 </html>
