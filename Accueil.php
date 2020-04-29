@@ -3,7 +3,7 @@
 		require_once('./fonctions/Image.php');
 		require_once('./fonctions/Connexion.php');
 		require_once('./fonctions/Affichage.php');
-		
+		session_start();
 	?>
 <html>
 	<title>Mini Pinterest</title>
@@ -15,9 +15,10 @@
 	<head>
 		<div class='w3-container w3-teal w3-center'>
 			<h1>Mini Pinterest le site !</h1>
-			<?php 
+			<?php
 				session_start();
 				formulaireConnexion();
+				formulaireCreerCompte();
 		?>
 		</div>
 	</head>
@@ -37,7 +38,7 @@
 			<br />
 		<form class="w3-container w3-center" action="Accueil.php" method="post">
 			<label for="recherche">Rechercher une image : </label>
-			<input type ="text" name="recherche" id="recherche" placeholder="Rechercher ..."/>
+			<input type ="search" name="recherche" id="recherche" placeholder="Rechercher ..."/>
 			<input  class="w3_button w3-teal" type="submit" name="rechercher" value = "Go!"/ >
 		</form>
 		<br />

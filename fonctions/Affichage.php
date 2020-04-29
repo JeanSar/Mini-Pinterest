@@ -7,13 +7,13 @@ function Categorie(){
 	$link=getConnection();
 	if(isset($_POST['Categorie'])) {
 			if($_POST['Categorie'] == "TOUT") {
-				
+
 				if(isset($_SESSION['logged'])){
 					if($_SESSION['droit']){
 						echo "<h2>Toutes les photos</h2>";
 						afficherTout($link);
 					}
-						
+
 					else{
 						echo "<h2>Toutes vos photos</h2>";
 						afficherToutUtilisateur($link,$_SESSION['logged']);
@@ -71,7 +71,7 @@ function formulaireConnexion(){
 	if((isset($_POST['deco'])) and isset($_SESSION['logged'])){
 					unset($_SESSION['logged']);
 					session_destroy();
-					
+
 				}
 				$link=getConnection();
 				if (!isset($_SESSION["logged"])){
@@ -83,7 +83,7 @@ function formulaireConnexion(){
 							<input type ='password' name='psswd' id='psswd' placeholder='Saisir ...' required/>
 							<input  class='w3_button w3-teal' type='submit' name='connexion' value = 'Se connecter'/ >
 							</form>";
-					}	
+					}
 					else{
 						$_SESSION['debut']=$_SERVER['REQUEST_TIME'];
 						$requete=executeQuery($link, "SELECT Nom, motdepasse,droit FROM utilisateur WHERE pseudo = '".$_POST['pseudo']."'");
@@ -105,7 +105,7 @@ function formulaireConnexion(){
 									<input type='submit' value='Se déconnecter' name='deco'>
 								</form>";
 							}
-						else{ 
+						else{
 							echo "Mauvais mot de passe ou pseudo";
 							echo "<form action='Accueil.php' method='post'>
 							<label for='id'>Identifiant : </label>
@@ -114,8 +114,8 @@ function formulaireConnexion(){
 							<input type ='password' name='psswd' id='psswd' placeholder='Saisir ...' required/>
 							<input  class='w3_button w3-teal' type='submit' name='connexion' value = 'Se connecter'/ >
 							</form>";
-						
-						
+
+
 						$requete->close();
 						$link->next_result();}
 						}
@@ -132,4 +132,13 @@ function formulaireConnexion(){
 						<input type='submit' value='Se déconnecter' name='deco'>
 						</form>";
 			}
+}
+
+function formulaireCreerCompte(){
+	echo "OU <br />";
+	echo "<form action='Creercompte.php'>
+						<input class='w3_button w3-teal' type='submit' value='Créer un compte'>
+				</form>
+	";
+
 }
