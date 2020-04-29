@@ -16,7 +16,6 @@
 		<div class='w3-container w3-teal w3-center'>
 			<h1>Mini Pinterest le site !</h1>
 			<?php
-				session_start();
 				formulaireConnexion();
 				formulaireCreerCompte();
 		?>

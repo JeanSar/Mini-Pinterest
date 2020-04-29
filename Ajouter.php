@@ -3,10 +3,16 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Quelle photo ?</title>
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
 		<link rel="stylesheet" href="style.css">
+
+		<div class='w3-container w3-teal w3-center'>
+			<h1>Mini Pinterest le site !</h1>
+		</div>
 	</head>
-	<body>
-		<a href="Accueil.php" >Retourner à l'accueil</a>
+	<body  style='text-align: center;'>
+		<h2> Ajouter une image : </h2>
 		<?php
 		session_start();
 		require_once('./fonctions/Connexion.php');
@@ -16,34 +22,34 @@
 		$link=getConnection();
 		function formulaire(){
 			echo'<form enctype="multipart/form-data" method="post" action="Ajouter.php">
-			
+
 			<label for="Téléchargement">Télécharger votre fichier svp : </label>
 			<input type="hidden" name="MAX_FILE_SIZE" value="100000" required/>
-			<input type="file" name="fichier" id="fichier"/>
+			<input type="file" name="fichier" id="fichier"/> <br>
 			<span id="missFichier"></span><br>
-			
-            <label for="description">Entrez votre description svp : </label>
-            <textarea maxlength="255" name="description" id="description" required></textarea>
+
+            <label for="description">Entrez votre description svp : </label> <br>
+            <textarea maxlength="255" name="description" id="description" required></textarea> <br>
             <span id="missDescription"></span><br>
-            
+
             <label for="Catalogue">Choisissez la catégorie : </label>
 			<select name="categorie" id="categorie" required>
 				<option value=""></option>
 				<option value="Fruit">Fruit</option>
 				<option value="Légume">Légume</option>
-			</select>
+			</select> <br>
 			<span id="missCategorie"></span><br />
-            
+
             <label for="nom">Nom que vous voulez donner :</label>
-            <input type="text" name="nom" id="nom" required><br>
-            <input type="submit" value="Valider" id="bouton_envoi">
+            <input type="text" name="nom" id="nom" required><br> <br>
+            <input class="w3_button w3-teal" type="submit" value="Valider" id="bouton_envoi">
         </form>';
 		}
-		
+
 		if(isset($_POST['description']) and isset($_FILES['fichier']['name']) and isset($_POST['categorie']) and isset($_POST['nom'])){
-			
+
 			$affiche_formulaire=0;
-			
+
 			if($_POST['categorie']==""){
 				echo "Aucune descritpion<br />";
 				$affiche_formulaire=1;
@@ -53,7 +59,7 @@
 				echo "Aucune catégorie choisie <br />";
 				$affiche_formulaire=1;
 			}
-			
+
 			if($affiche_formulaire==1)
 				formulaire();
 			if($affiche_formulaire==0 and isset($_FILES['fichier'])){
@@ -80,23 +86,23 @@
 						//echo 'Upload effectué avec succès !';
 						if (isset($_SESSION["logged"])){
 							executeUpdate($link, "INSERT INTO photo (nomFich,description,catId,titre,Nom) values ('".$fichier."','".$_POST['description']."','".$categorie."','".$_POST['nom']."','".$_SESSION["logged"]."')");
-						
+
 						}
-						else{executeUpdate($link, "INSERT INTO photo values 	('".$chaine."','".$fichier."','".$_POST['description']."','".$categorie."','".$_POST['nom']."','Dieu'");}
+						else{executeUpdate($link, "INSERT INTO photo values 	('".$chaine."','".$fichier."','".$_POST['description']."','".$categorie."','".$_POST['nom']."','Dieu');");}
 						header('Location: Accueil.php');
 						}
 					}}
 				else //Sinon (la fonction renvoie FALSE).
-     			{	
+     			{
 					echo 'Echec de l\'upload !';
 				}
-			}	
-		
+			}
+
 		else{
 			formulaire();
 		}
 		?>
-		
-		
+	<br> <br>
+	<a href="Accueil.php" >Retourner à l'accueil</a>
 	</body>
 </html>
