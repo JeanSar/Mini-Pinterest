@@ -53,6 +53,10 @@
 				$truemdp->close();
 				$link->next_result();
 				executeQuery($link, "UPDATE utilisateur SET motdepasse ='" . ((string) $newmdp) ."' WHERE pseudo='". $_SESSION['pseudo'] ."';");
+				echo "<b>Votre mot de passe a bien été changé </b>";
+			}
+			else {
+				echo "<b>Votre mot de passe actuel n'est pas celui-çi</b>";
 			}
 		}
 	?>
