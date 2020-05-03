@@ -29,7 +29,7 @@
 		<a href="Accueil.php" class="bouton-relief">Revenir à l'accueil</a>
 		</div>
 		<?php
-			$link=getConnection();
+			/*$link=getConnection();
 			afficherImage($_POST['Modifier']);
 			echo '<br><br>';
 			$requete=executeQuery($link, "SELECT P.description, C.nomCat, P.titre FROM photo P NATURAL JOIN categorie C WHERE nomFich='".$_POST['Modifier']."'");
@@ -59,7 +59,7 @@
 				<input type="text" name="nom" id="nom" value="'.$resultat['titre'].'" required>
 				<input type="hidden" name="nomFich" id="nom" value="'.$_POST['Modifier'].'" required><br>
 				<input type="submit" value="Valider" id="bouton_envoi">
-				</form>';
+				</form>';*/
 		?>
 	</head>
 </html>
