@@ -92,7 +92,8 @@ function formulaireConnexion(){
 								echo "<form action='Accueil.php' method='post'>
 										<input type='submit' value='Se déconnecter' name='deco'>
 									</form>";
-								echo "<a href='Photo.php' >Voir toutes les photos</a>";
+								echo "<a href='Photo.php' >Voir toutes les photos</a><br>";
+								echo "<a href='Mdp.php' >Changer de mot de passe</a>";
 								}
 							else{
 								echo "Mauvais mot de passe ou pseudo";
@@ -120,7 +121,8 @@ function formulaireConnexion(){
 					echo "<form action='Accueil.php' method='post'>
 							<input type='submit' value='Se déconnecter' name='deco'>
 							</form>";
-					echo "<a href='Photo.php' >Voir toutes les photos</a>";
+					echo "<a href='Photo.php' >Voir toutes les photos</a><br>";
+					echo "<a href='Mdp.php' >Changer de mot de passe</a>";
 		}
 }
 function formulaireCreerCompte(){
