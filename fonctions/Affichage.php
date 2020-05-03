@@ -74,12 +74,14 @@ function formulaireConnexion(){
 						}
 						else{
 							$_SESSION['debut']=$_SERVER['REQUEST_TIME'];
-							$requete=executeQuery($link, "SELECT Nom, motdepasse,droit FROM utilisateur WHERE pseudo = '".$_POST['pseudo']."'");
+							$pseudo = htmlspecialchars($_POST['pseudo']);
+							$requete=executeQuery($link, "SELECT Nom, motdepasse,droit FROM utilisateur WHERE pseudo = '".$pseudo."'");
 							$resultat=mysqli_fetch_array($requete);
 							$chaine = ((string)($resultat['motdepasse']));
 							$requete->close();
 							$link->next_result();
-							if(($chaine==$_POST['psswd'])and $requete){
+							$password = htmlspecialchars($_POST['psswd']);
+							if(($chaine==$password)and $requete){
 								$_SESSION["logged"]=$resultat['Nom'];
 								$_SESSION['temps']=$_SERVER['REQUEST_TIME']-$_SESSION['debut'];
 								$seconde=$_SESSION['temps']%60;
@@ -96,7 +98,7 @@ function formulaireConnexion(){
 								echo "<a href='Mdp.php' >Changer de mot de passe</a>";
 								}
 							else{
-								echo "Mauvais mot de passe ou pseudo";
+								echo "<div class='w3-red'><b>Mauvais mot de passe ou pseudo</b></div>";
 								echo "<form action='Accueil.php' method='post'>
 								<label for='id'>Identifiant : </label>
 								<input type ='text' name='pseudo' id='id' placeholder='Saisir ...' required/>
