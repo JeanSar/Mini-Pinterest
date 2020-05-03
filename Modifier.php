@@ -11,30 +11,18 @@ session_start();
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+	<link rel="stylesheet" href="style.css">
 	<head>
 		<div class="w3-container w3-teal w3-center">
 			<h1>Mini Pinterest le site !</h1>
-			<?php				
+			<?php
 				formulaireConnexion();
 			?>
+			<br />
+			<a href="Accueil.php" >Retourner à l'accueil</a>
 		</div>
 	</head>
 	<body>
-	<style type="text/css">
-		a.bouton-relief {
-  			color: white;
-  			background-color: #000080;
-			text-decoration: none;
-			text-align: center;
-			padding: 5px;
-  			border: 2px outset #c0c0c0;
-		}
-		a.bouton-relief:hover {
-  			background-color: #6495ED;
-  			border: 2px inset #c0c0c0;
-		}
-	</style>
-	<a href="Accueil.php" class="bouton-relief">Index</a>
 	<br />
 	<?php
 	$link=getConnection();
@@ -47,11 +35,11 @@ session_start();
 				$link->next_result();
 				$requete1 = executeQuery($link,"SELECT nomCat FROM categorie WHERE nomCat !='".$resultat['nomCat']."'");
 				echo'<form method="post" action="Modifier.php">
-			
+
 				<label for="description">Entrez votre description svp : </label>
 				<textarea maxlength="255" name="description" id="description" required>'.$resultat['description'].'</textarea>
 				<span id="missDescription"></span><br>
-            
+
             	<label for="Catalogue">Choisissez la catégorie : </label>
 				<select name="categorie" id="categorie" required>';
 				echo '<option value="'.$resultat['nomCat'].'">'.$resultat['nomCat'].'</option>';
@@ -63,15 +51,15 @@ session_start();
 				$link->next_result();
 				echo '</select>
 				<span id="missCategorie"></span><br />
-            
+
             	<label for="nom">Nom que vous voulez donner :</label>
 				<input type="text" name="nom" id="nom" value="'.$resultat['titre'].'" required>
 				<input type="hidden" name="nomFich" id="nom" value="'.$_POST['Modifier'].'" required><br>
-				<input type="submit" value="Valider" id="bouton_envoi">
+				<input class="w3-button w3-teal" type="submit" value="Valider" id="bouton_envoi">
 				</form>';
 		}
 	if(isset($_POST['nom'])){
-		
+
 		$requete=executeQuery($link, "SELECT catId FROM categorie WHERE nomCat ='".$_POST['categorie']."'");
 		$resultat=mysqli_fetch_array($requete);
 		$requete->close();

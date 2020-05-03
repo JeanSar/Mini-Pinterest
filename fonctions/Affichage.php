@@ -92,7 +92,7 @@ function formulaireConnexion(){
 								$_SESSION['droit']=$resultat['droit'];
 								echo "<a href='Ajouter.php' >Ajouter une image</a>";
 								echo "<form action='Accueil.php' method='post'>
-										<input type='submit' value='Se déconnecter' name='deco'>
+										<input class ='w3_button w3-teal' type='submit' value='Se déconnecter' name='deco'>
 									</form>";
 								echo "<a href='Photo.php' >Voir toutes les photos</a><br>";
 								echo "<a href='Mdp.php' >Changer de mot de passe</a>";
@@ -121,7 +121,7 @@ function formulaireConnexion(){
 					echo "<br>";
 					echo "<a href='Ajouter.php' >Ajouter une image</a>";
 					echo "<form action='Accueil.php' method='post'>
-							<input type='submit' value='Se déconnecter' name='deco'>
+							<input class ='w3_button w3-teal' type='submit' value='Se déconnecter' name='deco'>
 							</form>";
 					echo "<a href='Photo.php' >Voir toutes les photos</a><br>";
 					echo "<a href='Mdp.php' >Changer de mot de passe</a>";
