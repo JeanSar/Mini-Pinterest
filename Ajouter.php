@@ -20,7 +20,8 @@
 			header('Location: Accueil.php');
 		}
 		$link=getConnection();
-		function formulaire(){
+		function formulaire($link){
+			$requete = executeQuery($link,"SELECT nomCat FROM categorie");
 			echo'<form enctype="multipart/form-data" method="post" action="Ajouter.php">
 
 			<label for="Téléchargement">Télécharger votre fichier svp : </label>
@@ -34,10 +35,11 @@
 
             <label for="Catalogue">Choisissez la catégorie : </label>
 			<select name="categorie" id="categorie" required>
-				<option value=""></option>
-				<option value="Fruit">Fruit</option>
-				<option value="Légume">Légume</option>
-			</select> <br>
+				<option value=""></option>';
+				while($resultat = mysqli_fetch_array($requete)){
+				echo '<option value="'.$resultat['nomCat'].'">'.$resultat['nomCat'].'</option>';
+				}
+			echo '</select> <br>
 			<span id="missCategorie"></span><br />
 
             <label for="nom">Nom que vous voulez donner :</label>
@@ -61,7 +63,7 @@
 			}
 
 			if($affiche_formulaire==1)
-				formulaire();
+				formulaire($link);
 			if($affiche_formulaire==0 and isset($_FILES['fichier'])){
 				$ext = array ('jpeg', 'gif', 'png');
 				$extension = pathinfo($_FILES['fichier']['name'], PATHINFO_EXTENSION);
@@ -99,7 +101,7 @@
 			}
 
 		else{
-			formulaire();
+			formulaire($link);
 		}
 		?>
 	<br> <br>

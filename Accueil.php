@@ -18,6 +18,8 @@
 			<?php
 				formulaireConnexion();
 				formulaireCreerCompte();
+				echo '<br>';
+				afficherStat();
 		?>
 		</div>
 	</head>
@@ -25,12 +27,14 @@
 
 	<p>
 		<form class="w3-container w3-center" action="Accueil.php" method="post">
-
 			<label for="categorie">Choisissez une catégorie </label>
 			<select name="Categorie" id="categorie">
 				<option value="TOUT">Tout</option>
-				<option value="Fruit">Fruits</option>
-				<option value="Legume">Legumes</option>
+			<?php $requete = executeQuery($link,"SELECT nomCat FROM categorie");
+				while($resultat = mysqli_fetch_array($requete)){
+					echo '<option value="'.$resultat['nomCat'].'">'.$resultat['nomCat'].'</option>';
+				}
+			?>
 			</select>
 			<input  class="w3_button w3-teal" type="submit" name="afficher" value="Afficher"/>
 		</form>

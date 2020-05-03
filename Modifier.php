@@ -41,8 +41,11 @@ session_start();
 	if(isset($_POST['Modifier'])){
 				afficherImage($_POST['Modifier']);
 				echo '<br><br>';
-				$requete=executeQuery($link, "SELECT description, catId, titre FROM photo WHERE nomFich='".$_POST['Modifier']."'");
+				$requete=executeQuery($link, "SELECT P.description, C.nomCat, P.titre FROM photo P NATURAL JOIN categorie C WHERE nomFich='".$_POST['Modifier']."'");
 				$resultat=mysqli_fetch_array($requete);
+				$requete->close();
+				$link->next_result();
+				$requete1 = executeQuery($link,"SELECT nomCat FROM categorie WHERE nomCat !='".$resultat['nomCat']."'");
 				echo'<form method="post" action="Modifier.php">
 			
 				<label for="description">Entrez votre description svp : </label>
@@ -50,11 +53,15 @@ session_start();
 				<span id="missDescription"></span><br>
             
             	<label for="Catalogue">Choisissez la catégorie : </label>
-				<select name="categorie" id="categorie" required>
-					<option value=""></option>
-					<option value="Fruit">Fruit</option>
-					<option value="Légume">Légume</option>
-				</select>
+				<select name="categorie" id="categorie" required>';
+				echo '<option value="'.$resultat['nomCat'].'">'.$resultat['nomCat'].'</option>';
+				while($resultat1 = mysqli_fetch_array($requete1)){
+					echo '<option value="'.$resultat1['nomCat'].'">'.$resultat1['nomCat'].'</option>';
+					echo $resultat1['nomCat'];
+				}
+				$requete->close();
+				$link->next_result();
+				echo '</select>
 				<span id="missCategorie"></span><br />
             
             	<label for="nom">Nom que vous voulez donner :</label>
@@ -64,7 +71,12 @@ session_start();
 				</form>';
 		}
 	if(isset($_POST['nom'])){
-		executeQuery($link, "Update photo SET description='".$_POST['description']."', titre = '".$_POST['nom']."' WHERE nomFich='".$_POST['nomFich']."'");
+		
+		$requete=executeQuery($link, "SELECT catId FROM categorie WHERE nomCat ='".$_POST['categorie']."'");
+		$resultat=mysqli_fetch_array($requete);
+		$requete->close();
+		$link->next_result();
+		executeQuery($link, "Update photo SET description='".$_POST['description']."', titre = '".$_POST['nom']."', catId =".$resultat['catId']." WHERE nomFich='".$_POST['nomFich']."'");
 		header('Location: Accueil.php');
 	}
 	?>

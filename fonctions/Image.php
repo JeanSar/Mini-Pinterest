@@ -6,9 +6,7 @@
 <?php
 require_once('Connexion.php');
 function afficherImage($nomFich){
-	echo "
-
-		<img src='assets/images/".$nomFich."'";
+	echo "<img src='assets/images/".$nomFich."'";
 }
 
 function afficherImageAccueil($nomFich){
@@ -23,10 +21,7 @@ function afficherImageAccueil($nomFich){
 }
 
 function afficherTout($link){
-	if(isset($_SESSION['logged'])){
-	$requete = executeQuery($link, "SELECT nomFich FROM photo WHERE (afficher = 1 AND Nom!='".($_SESSION['logged'])."') OR Nom='".($_SESSION['logged'])."'");
-	}
-	else $requete = executeQuery($link, "SELECT nomFich FROM photo WHERE afficher = 1");
+	$requete = executeQuery($link, "SELECT nomFich FROM photo WHERE afficher = 1");
 	while($resultat = mysqli_fetch_array($requete)){
 		afficherImageAccueil($resultat['nomFich']);
 	}
