@@ -48,7 +48,7 @@ function Recherche(){
 		}
 	}
 function afficherStat(){
-	if(isset($_SESSION['droit'])){
+	if(isset($_SESSION['logged'])){
 		if($_SESSION['droit'] == 1){
 			echo '<a href="Statistique.php" >Voir les statistiques</a>';
 		}
