@@ -118,7 +118,7 @@ function formulaireConnexion(){
 					$seconde=$_SESSION['temps']%60;
 					$minute=($_SESSION['temps']-$seconde)/60;
 					echo "Temps de connexion : ".$minute." minute(s) ".$seconde." seconde(s)"."<br>";
-					echo $_SESSION["logged"];
+					echo "Connecté en tant que : " . $_SESSION["pseudo"];
 					echo "<br>";
 					echo "<a href='Ajouter.php' >Ajouter une image</a>";
 					echo "<form action='Accueil.php' method='post'>

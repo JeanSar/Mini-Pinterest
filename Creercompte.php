@@ -44,9 +44,9 @@
       $resultat = mysqli_fetch_array($requete);
       if(empty($resultat)) {
         executeQuery($link, "INSERT INTO utilisateur(droit, Nom, pseudo, motdepasse) VALUES ('0','" . $nom . "','" . $id ."','" . $mdp ."');");
-        echo "Votre compte Mini Pinterest : <b>\"" . $id . "\"</b> viens d'être créé ! <br />";
+        echo "<div class='w3-green'>Votre compte Mini Pinterest : <b>\"" . $id . "\"</b> viens d'être créé ! <br />";
         echo "Cliquer <a href='Accueil.php'>ICI</a> pour être redirigé sur la page d'acceuil. <br />";
-        echo "Vous devrez alors vous connecter pour acceder à votre compte.";
+        echo "Vous devrez alors vous connecter pour acceder à votre compte.</div>";
       } else {
         echo "<div class='w3-red'> Votre pseudo est déjà pris </div>";
       }
