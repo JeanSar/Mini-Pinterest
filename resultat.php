@@ -104,11 +104,17 @@ session_start();
 						</form>";
 				}
 			}
-			echo "<form  method='post' action='resultat.php'>
-				<input type='hidden' value='".$nomImage."' name='supprimer'>
-				<input type='submit' value='Supprimer'>
-				</form>";
+			$requete->close();
+			$link->next_result();
+			$requete = executeQuery($link,"SELECT Nom FROM photo WHERE nomFich='".$nomImage."'");
+			$resultat = mysqli_fetch_array($requete);
+			if($resultat['Nom']==$_SESSION['logged']){
+				echo "<form  method='post' action='resultat.php'>
+					<input type='hidden' value='".$nomImage."' name='supprimer'>
+					<input type='submit' value='Supprimer'>
+					</form>";
 			}
+		}
 	?>
 </body>
 </html>
