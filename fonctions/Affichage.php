@@ -83,6 +83,7 @@ function formulaireConnexion(){
 							$password = htmlspecialchars($_POST['psswd']);
 							if(($chaine==$password)and $requete){
 								$_SESSION["logged"]=$resultat['Nom'];
+								$_SESSION['pseudo']=$pseudo;
 								$_SESSION['temps']=$_SERVER['REQUEST_TIME']-$_SESSION['debut'];
 								$seconde=$_SESSION['temps']%60;
 								$minute=($_SESSION['temps']-$seconde)/60;

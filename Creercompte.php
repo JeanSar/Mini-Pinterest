@@ -27,7 +27,7 @@
         <label for="id">Choisissez un pseudo (identifiant de session) :</label> <br />
         <input type="text" id="id" name="id" placeholder="Saisir un pseudo ..." required>  <br /> <br />
         <label for="mdp">Choisissez un mot de passe :</label> <br />
-        <input type="password" id="mdp" name="mdp" placeholder="Saisir un mot de passe..." pattern=".{3,}" title="doit contenir au moins 3 caractères" required >  <br /> <br />
+        <input type="password" id="mdp" name="mdp" placeholder="Saisir un mot de passe..." pattern=".{8,}" title="doit contenir au moins 8 caractères" required >  <br /> <br />
         <input type="checkbox" id="agree" name="agree" required>
         <label for id="agree"> I swear I agree Privacy Terms </label> <br /> <br />
         <input type="submit" class='w3_button w3-teal' name="submit" value="Créer votre compte">

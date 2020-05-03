@@ -27,39 +27,33 @@
 		?>
 		<br>
 		<a href="Accueil.php" class="bouton-relief">Revenir à l'accueil</a>
-		</div>
-		<?php
-			/*$link=getConnection();
-			afficherImage($_POST['Modifier']);
-			echo '<br><br>';
-			$requete=executeQuery($link, "SELECT P.description, C.nomCat, P.titre FROM photo P NATURAL JOIN categorie C WHERE nomFich='".$_POST['Modifier']."'");
-			$resultat=mysqli_fetch_array($requete);
-			$requete->close();
-			$link->next_result();
-			$requete1 = executeQuery($link,"SELECT nomCat FROM categorie WHERE nomCat !='".$resultat['nomCat']."'");
-			echo'<form method="post" action="Modifier.php">
-			
-			<label for="description">Entrez votre description svp : </label>
-			<textarea maxlength="255" name="description" id="description" required>'.$resultat['description'].'</textarea>
-			<span id="missDescription"></span><br>
-            
-            <label for="Catalogue">Choisissez la catégorie : </label>
-			<select name="categorie" id="categorie" required>';
-			echo '<option value="'.$resultat['nomCat'].'">'.$resultat['nomCat'].'</option>';
-			while($resultat1 = mysqli_fetch_array($requete1)){
-					echo '<option value="'.$resultat1['nomCat'].'">'.$resultat1['nomCat'].'</option>';
-					echo $resultat1['nomCat'];
-				}
-				$requete->close();
-				$link->next_result();
-				echo '</select>
-				<span id="missCategorie"></span><br />
-            
-            	<label for="nom">Nom que vous voulez donner :</label>
-				<input type="text" name="nom" id="nom" value="'.$resultat['titre'].'" required>
-				<input type="hidden" name="nomFich" id="nom" value="'.$_POST['Modifier'].'" required><br>
-				<input type="submit" value="Valider" id="bouton_envoi">
-				</form>';*/
-		?>
+	</div>
 	</head>
+	<body style='text-align: center;'>
+
+		<form action='Mdp.php' method='post'>
+			<fieldset>
+				<legend> <h2> Modifier votre de mot de passe : </h2> </legend>
+				<label>Vous allez modifier le mot de passe de votre compte mini-pinterest : <?php echo $_SESSION['pseudo']; ?><label> <br />
+				<label for="mdp">Saisir votre mot de passe actuel :</label> <br />
+				<input type="password" id="mdp" name="mdp" placeholder="Saisir votre mot de passe" required>  <br /> <br />
+				<label for="newmdp">Choisissez un nouveau mot de passe :</label> <br />
+				<input type="password" id="newmdp" name="newmdp" placeholder="Saisir un nouveau mot de passe..." pattern=".{8,}" title="doit contenir au moins 8 caractères" required >  <br /> <br />
+				<input type="submit" class='w3_button w3-teal' name="submit" value="Valider la modification">
+			</fieldset>
+		</form>
+	</body>
+	<?php
+		if(isset($_POST["submit"])) {
+			$mdp = htmlspecialchars($_POST["mdp"]);
+			$newmdp = htmlspecialchars($_POST["newmdp"]);
+			$truemdp = executeQuery($link, "SELECT motdepasse FROM utilisateur WHERE pseudo='" . $_SESSION['pseudo'] . "';");
+			$resultat= mysqli_fetch_array($truemdp);
+			if($mdp == $resultat['motdepasse']) {
+				$truemdp->close();
+				$link->next_result();
+				executeQuery($link, "UPDATE utilisateur SET motdepasse ='" . ((string) $newmdp) ."' WHERE pseudo='". $_SESSION['pseudo'] ."';");
+			}
+		}
+	?>
 </html>
