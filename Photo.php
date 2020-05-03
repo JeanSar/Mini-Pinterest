@@ -24,7 +24,6 @@
 				formulaireCreerCompte();
 				echo '<br>';
 				
-				afficherStat();
 				
 			}
 
