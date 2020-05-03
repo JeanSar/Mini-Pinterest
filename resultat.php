@@ -68,11 +68,11 @@ session_start();
 				if(in_array($nomImage, $resultat)){
 					echo "<form  method='post' action='resultat.php'>
 						<input type='hidden' value='".$nomImage."' name='Cacher'>
-						<input type='submit' value='Cacher'>
+						<input class='w3_button w3-teal' type='submit' value='Cacher'>
 						</form>";
 					echo "<form  method='post' action='Modifier.php'>
 						<input type='hidden' value='".$nomImage."' name='Modifier'>
-						<input type='submit' value='Modifier'>
+						<input class='w3_button w3-teal' type='submit' value='Modifier'>
 						</form>";
 				}
 			}
@@ -84,11 +84,11 @@ session_start();
 				if(in_array($nomImage, $resultat)){
 					echo "<form  method='post' action='resultat.php'>
 						<input type='hidden' value='".$nomImage."' name='Afficher'>
-						<input type='submit' value='Rendre public'>
+						<input class='w3_button w3-teal' type='submit' value='Rendre public'>
 						</form>";
 					echo "<form  method='post' action='Modifier.php'>
 						<input type='hidden' value='".$nomImage."' name='Modifier'>
-						<input type='submit' value='Modifier'>
+						<input class='w3_button w3-teal' type='submit' value='Modifier'>
 						</form>";
 				}
 			}
@@ -99,7 +99,7 @@ session_start();
 			if($resultat['Nom']==$_SESSION['logged']){
 				echo "<form  method='post' action='resultat.php'>
 					<input type='hidden' value='".$nomImage."' name='supprimer'>
-					<input type='submit' value='Supprimer'>
+					<input class='w3_button w3-teal' type='submit' value='Supprimer'>
 					</form>";
 			}
 		}

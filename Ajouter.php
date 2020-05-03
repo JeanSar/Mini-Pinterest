@@ -53,12 +53,12 @@
 			$affiche_formulaire=0;
 
 			if($_POST['categorie']==""){
-				echo "Aucune descritpion<br />";
+				echo "<div class='w3-red'><b>Aucune descritpion</b></div><br />";
 				$affiche_formulaire=1;
 			}
 
 			if($_POST['description']==""){
-				echo "Aucune catégorie choisie <br />";
+				echo "<div class='w3-red'><b>Aucune catégorie choisie</b></div><br />";
 				$affiche_formulaire=1;
 			}
 
@@ -68,7 +68,9 @@
 				$ext = array ('jpeg', 'gif', 'png');
 				$extension = pathinfo($_FILES['fichier']['name'], PATHINFO_EXTENSION);
 				if (!(in_array(strtolower($extension), $ext))){
-					echo 'Mauvaise extension <br>';
+					echo "<div class='w3-red'><b>Vous n'avez choisis aucune image / votre image ne possède pas le bonne extension</b></div><br>
+								Extensions acceptées : .jpeg ;  .gif ; .png ;
+						";
 				}
 				else{
 					$dossier = 'assets/images/';
