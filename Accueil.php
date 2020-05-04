@@ -4,6 +4,7 @@
 		require_once('./fonctions/Connexion.php');
 		require_once('./fonctions/Affichage.php');
 		session_start();
+		error_reporting(0);
 	?>
 <html>
 	<title>Mini Pinterest</title>
