@@ -20,13 +20,13 @@ function afficherImageAccueil($nomFich){
 			</form>";
 }
 
-function afficherTout($link){
+function afficherTout($link){ //affiche toutes les images
 	$requete = executeQuery($link, "SELECT nomFich FROM photo WHERE afficher = 1");
 	while($resultat = mysqli_fetch_array($requete)){
 		afficherImageAccueil($resultat['nomFich']);
 	}
 }
-function afficherToutUtilisateur($link, $nom){
+function afficherToutUtilisateur($link, $nom){ //Affiche les images de l'utilisateur
 	$requete = executeQuery($link, "SELECT nomFich FROM photo WHERE Nom='".$nom."'");
 	while($resultat = mysqli_fetch_array($requete)){
 		afficherImageAccueil($resultat['nomFich']);

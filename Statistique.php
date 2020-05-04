@@ -37,6 +37,8 @@
 			header('Location: Accueil.php');
 		}
 		else{
+			//Affiche deux tableaux un donnant le nombre de photos par utilisateur
+			//Le second donne le nombre de photos par catégorie
 			$requete=executeQuery($link,"SELECT Nom, COUNT(nomFich) as nb FROM photo GROUP BY Nom");
 			echo '<table>';
 			echo'<tbody>';

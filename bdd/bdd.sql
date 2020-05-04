@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : Dim 03 mai 2020 à 17:19
+-- Généré le : lun. 04 mai 2020 à 11:54
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.4
 
@@ -57,6 +57,14 @@ CREATE TABLE `photo` (
   `Nom` varchar(250) DEFAULT NULL,
   `afficher` tinyint(10) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `photo`
+--
+
+INSERT INTO `photo` (`photoId`, `nomFich`, `description`, `catId`, `titre`, `Nom`, `afficher`) VALUES
+(48, 'DSC1.jpeg', 'Photo de fraises', 1, 'Fraise', 'Dieu', 1),
+(49, 'DSC49.jpeg', 'Avion stylé', 4, 'Avion', 'Deloin Gaspar', 1);
 
 -- --------------------------------------------------------
 
@@ -118,7 +126,7 @@ ALTER TABLE `categorie`
 -- AUTO_INCREMENT pour la table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `photoId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `photoId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- Contraintes pour les tables déchargées

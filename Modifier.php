@@ -26,7 +26,9 @@ session_start();
 	<br />
 	<?php
 	$link=getConnection();
-	if(isset($_POST['Modifier'])){
+	if(isset($_POST['Modifier'])){ 
+		//formulaire pour changer des informations d'une image, semblable à celui pour ajouter une image
+		//avec des valeurs prédéfinies
 				afficherImage($_POST['Modifier']);
 				echo '<br><br>';
 				$requete=executeQuery($link, "SELECT P.description, C.nomCat, P.titre FROM photo P NATURAL JOIN categorie C WHERE nomFich='".$_POST['Modifier']."'");
@@ -42,6 +44,8 @@ session_start();
 
             	<label for="Catalogue">Choisissez la catégorie : </label>
 				<select name="categorie" id="categorie" required>';
+				//Permet d'avoir la catégorie de l'image préselectionnée
+				//Faire apparaître les autres après
 				echo '<option value="'.$resultat['nomCat'].'">'.$resultat['nomCat'].'</option>';
 				while($resultat1 = mysqli_fetch_array($requete1)){
 					echo '<option value="'.$resultat1['nomCat'].'">'.$resultat1['nomCat'].'</option>';

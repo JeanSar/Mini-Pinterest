@@ -19,7 +19,6 @@
 				formulaireConnexion();
 				formulaireCreerCompte();
 				echo '<br>';
-				afficherStat();
 			}
 			else{
 				header('Location: Accueil.php');
@@ -44,12 +43,12 @@
 		</form>
 	</body>
 	<?php
-		if(isset($_POST["submit"])) {
+		if(isset($_POST["submit"])) { //Vérifie que le formulaire a bien été soumis avant
 			$mdp = htmlspecialchars($_POST["mdp"]);
 			$newmdp = htmlspecialchars($_POST["newmdp"]);
 			$truemdp = executeQuery($link, "SELECT motdepasse FROM utilisateur WHERE pseudo='" . $_SESSION['pseudo'] . "';");
 			$resultat= mysqli_fetch_array($truemdp);
-			if($mdp == $resultat['motdepasse']) {
+			if($mdp == $resultat['motdepasse']) { //Si l'ancien mdp est bon, alors il est changé par le nouveau
 				$truemdp->close();
 				$link->next_result();
 				executeQuery($link, "UPDATE utilisateur SET motdepasse ='" . ((string) $newmdp) ."' WHERE pseudo='". $_SESSION['pseudo'] ."';");

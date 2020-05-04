@@ -24,7 +24,6 @@
 				formulaireCreerCompte();
 				echo '<br>';
 
-
 			}
 
 			?>
@@ -33,6 +32,7 @@
 		</div>
 			<?php $link=getConnection();
 			echo "<h2>Toutes les photos</h2>";
+			//Affiche toutes les photos publiques
 			afficherTout($link);
 			?>
 </html>

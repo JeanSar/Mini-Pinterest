@@ -21,7 +21,7 @@ session_start();
 	if(!isset($_POST['image'])){
 		header('Location: Accueil.php');
 	}
-
+	//Pour accéder à cettte page, il faut avoir cliqué sur une image, si ce n'est pas le cas vous retournez à l'accueil directement
 ?>
 <html>
 	<title>Mini Pinterest</title>
@@ -34,7 +34,9 @@ session_start();
 		<div class="w3-container w3-teal w3-center">
 			<h1>Mini Pinterest le site !</h1>
 			<?php
-				formulaireConnexion();
+				formulaireConnexion(); //Formulaire pour se connecter, redirige à l'accueil, si vous l'êtes déjà
+									//affiche que vous êtes connecté
+				formulaireCreerCompte();
 			?>
 			<br />
 			<a href="Accueil.php" >Retourner à l'accueil</a>
@@ -47,6 +49,7 @@ session_start();
 		afficherImage($nomImage);
 		$requete = executeQuery($link,"SELECT P.titre, P.description, C.nomCat FROM `photo` P NATURAL JOIN `categorie` C WHERE `nomFich`='{$nomImage}'");
 		$tab = mysqli_fetch_array($requete);
+		//Affiche nom de l'image et sa catégorie qui est un lien vers toutes les images de sa catégorie
 		echo "<br>
 			<br>
 			Nom de l'image : ".$tab['titre']."
@@ -66,6 +69,8 @@ session_start();
 			$resultat = tableauQuery($requete);
 			if(!empty($resultat)){
 				if(in_array($nomImage, $resultat)){
+					//Si l'image est publique, affiche Cacher pour la rendre privée, bouton Modifier redirige 
+					//vers la page Modifier.php
 					echo "<form  method='post' action='resultat.php'>
 						<input type='hidden' value='".$nomImage."' name='Cacher'>
 						<input class='w3_button w3-teal' type='submit' value='Cacher'>
@@ -81,6 +86,8 @@ session_start();
 			$requete = executeQuery($link,"SELECT nomFich FROM photo WHERE afficher = 0 AND Nom='".$_SESSION["logged"]."'");
 			$resultat = tableauQuery($requete);
 			if(!empty($resultat)){
+					//Si l'image est publique, affiche Cacher pour la rendre publique, bouton Modifier redirige 
+					//vers la page Modifier.php
 				if(in_array($nomImage, $resultat)){
 					echo "<form  method='post' action='resultat.php'>
 						<input type='hidden' value='".$nomImage."' name='Afficher'>
@@ -96,7 +103,8 @@ session_start();
 			$link->next_result();
 			$requete = executeQuery($link,"SELECT Nom FROM photo WHERE nomFich='".$nomImage."'");
 			$resultat = mysqli_fetch_array($requete);
-			if($resultat['Nom']==$_SESSION['logged']){
+			if($resultat['Nom']==$_SESSION['logged']){ 
+				//Permet de supprimer uniquement les images qui vous appartiennent
 				echo "<form  method='post' action='resultat.php'>
 					<input type='hidden' value='".$nomImage."' name='supprimer'>
 					<input class='w3_button w3-teal' type='submit' value='Supprimer'>

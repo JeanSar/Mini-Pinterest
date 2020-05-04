@@ -50,7 +50,7 @@ function Recherche(){
 function afficherStat(){
 	if(isset($_SESSION['logged'])){
 		if($_SESSION['droit'] == 1){
-			echo '<a href="Statistique.php" >Voir les statistiques</a>';
+			echo '<a href="Statistique.php" >Voir les statistiques</a><br>';
 		}
 	}
 }
@@ -58,11 +58,15 @@ function formulaireConnexion(){
 		$link=getConnection();
 		if((isset($_POST['deco'])) and isset($_SESSION['logged'])){
 						unset($_SESSION['logged']);
-						session_destroy();
+						unset($_SESSION['debut']);
+						unset($_SESSION['temps']);
+						unset($_SESSION['droit']);
+						unset($_SESSION['pseudo']);
+						session_destroy();//Au cas où, il y a un oubli
 
 					}
 					$link=getConnection();
-					if (!isset($_SESSION["logged"])){
+					if (!isset($_SESSION["logged"])){//Vérifie que tu n'es pas connecté
 						if(!isset($_POST['pseudo'])){
 							echo "<form action='Accueil.php' method='post'>
 								<label for='id'>Identifiant : </label>
@@ -73,7 +77,6 @@ function formulaireConnexion(){
 								</form>";
 						}
 						else{
-							$_SESSION['debut']=$_SERVER['REQUEST_TIME'];
 							$pseudo = htmlspecialchars($_POST['pseudo']);
 							$requete=executeQuery($link, "SELECT Nom, motdepasse,droit FROM utilisateur WHERE pseudo = '".$pseudo."'");
 							$resultat=mysqli_fetch_array($requete);
@@ -82,6 +85,8 @@ function formulaireConnexion(){
 							$link->next_result();
 							$password = htmlspecialchars($_POST['psswd']);
 							if(($chaine==$password)and $requete){
+								//Si le mot de passe est bon lance la connexion
+								$_SESSION['debut']=$_SERVER['REQUEST_TIME'];
 								$_SESSION["logged"]=$resultat['Nom'];
 								$_SESSION['pseudo']=$pseudo;
 								$_SESSION['temps']=$_SERVER['REQUEST_TIME']-$_SESSION['debut'];
@@ -96,6 +101,7 @@ function formulaireConnexion(){
 										<input class ='w3_button w3-teal' type='submit' value='Se déconnecter' name='deco'>
 									</form>";
 								echo "<a href='Photo.php' >Voir toutes les photos</a><br>";
+								afficherStat();
 								echo "<a href='Mdp.php' >Changer de mot de passe</a>";
 								}
 							else{
@@ -125,6 +131,7 @@ function formulaireConnexion(){
 							<input class ='w3_button w3-teal' type='submit' value='Se déconnecter' name='deco'>
 							</form>";
 					echo "<a href='Photo.php' >Voir toutes les photos</a><br>";
+					afficherStat();
 					echo "<a href='Mdp.php' >Changer de mot de passe</a>";
 		}
 }

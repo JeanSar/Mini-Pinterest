@@ -16,10 +16,9 @@
 		<div class='w3-container w3-teal w3-center'>
 			<h1>Mini Pinterest le site !</h1>
 			<?php
-				formulaireConnexion();
-				formulaireCreerCompte();
+				formulaireConnexion(); //Zone de textes pour se connecter
+				formulaireCreerCompte(); //Bouton pour créer un compte si pas connecté
 				echo '<br>';
-				afficherStat();
 		?>
 		</div>
 	</head>
@@ -46,8 +45,8 @@
 		</form>
 		<br />
 		<?php
-		Categorie();
-		Recherche();
+		Categorie(); //Permet de chercher une image par catégorie dans la bdd
+		Recherche(); //Permet de chercher par le nom que l'utilisateur a mis dans la bdd
 		?>
 	</body>
 </html>
