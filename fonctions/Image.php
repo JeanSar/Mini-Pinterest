@@ -34,28 +34,28 @@ function afficherToutUtilisateur($link, $nom){ //Affiche les images de l'utilisa
 }
 
 function afficherCategorie($link,$categorie){
-	$requete = executeQuery($link, "SELECT nomFich 
-					FROM photo 
-					JOIN categorie 
+	$requete = executeQuery($link, "SELECT nomFich
+					FROM photo
+					JOIN categorie
 					ON categorie.catId = photo.catId
 					WHERE afficher = 1 AND nomCat LIKE \"". $categorie ."\"");
 	while($resultat = mysqli_fetch_array($requete)){
 		afficherImageAccueil($resultat['nomFich']);
 	}
 }
-	
+
 function afficherCategorieUtilisateur($link,$categorie, $nom){
-	$requete = executeQuery($link, "SELECT nomFich 
-					FROM photo 
-					JOIN categorie 
+	$requete = executeQuery($link, "SELECT nomFich
+					FROM photo
+					JOIN categorie
 					ON categorie.catId = photo.catId
 					WHERE nomCat LIKE '".$categorie."' and Nom='".$nom."'");
 	while($resultat = mysqli_fetch_array($requete)){
 		afficherImageAccueil($resultat['nomFich']);
 	}
 }
-	
-function afficherRecherche($link,$recherche){
+
+function afficherRecherche($link,$recherche){ //affiche le résultat de la recherche
 	$requete = executeQuery($link, "SELECT nomFich
 					FROM photo
 					WHERE afficher = 1 AND titre LIKE \"%". $recherche ."%\"");
@@ -64,7 +64,7 @@ function afficherRecherche($link,$recherche){
 	}
 
 }
-	
+
 function afficherRechercheUtilisateur($link,$recherche,$nom){
 	$requete = executeQuery($link, "SELECT nomFich
 					FROM photo
@@ -73,7 +73,7 @@ function afficherRechercheUtilisateur($link,$recherche,$nom){
 		afficherImageAccueil($resultat['nomFich']);
 	}
 
-}	
+}
 ?>
 
 </html>

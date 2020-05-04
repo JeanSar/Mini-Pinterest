@@ -3,7 +3,7 @@
 		require_once('./fonctions/Image.php');
 		require_once('./fonctions/Connexion.php');
 		require_once('./fonctions/Affichage.php');
-		session_start();
+		session_start(); //début de la session
 		error_reporting(0);
 	?>
 <html>
@@ -11,7 +11,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma"> <!--Utilisaton des templates de w3schools et de la police Karma-->
 	<link rel="stylesheet" href="style.css">
 	<head>
 		<div class='w3-container w3-teal w3-center'>
@@ -27,7 +27,7 @@
 
 	<p>
 		<form class="w3-container w3-center" action="Accueil.php" method="post">
-			<label for="categorie">Choisissez une catégorie </label>
+			<label for="categorie">Choisissez une catégorie </label>  <!--Séléctionner une catégorie-->
 			<select name="Categorie" id="categorie">
 				<option value="TOUT">Tout</option>
 			<?php $requete = executeQuery($link,"SELECT nomCat FROM categorie");
@@ -40,7 +40,7 @@
 		</form>
 			<br />
 		<form class="w3-container w3-center" action="Accueil.php" method="post">
-			<label for="recherche">Rechercher une image : </label>
+			<label for="recherche">Rechercher une image : </label> <!--rechercher une image-->
 			<input type ="search" name="recherche" id="recherche" placeholder="Rechercher ..."/>
 			<input  class="w3_button w3-teal" type="submit" name="rechercher" value = "Go!"/ >
 		</form>
